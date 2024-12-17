@@ -10,12 +10,12 @@ class Field:
 class Name(Field): # Class for storing contact name.
     def __init__(self, value):
         super().__init__(value)
-        self.name = self.value
 
 class Phone(Field): # Class for storing phone numbers.
     def __init__(self, value):
         if len(value) == 10 and value.isdigit(): # Format validation (10 digits).
             super().__init__(value)
+        else: raise ValueError 
 
 class Record:
     def __init__(self, name):
@@ -35,7 +35,7 @@ class Record:
         self.phones.remove(self.find_phone(phone))
 
     def edit_phone(self, old_phone, new_phone): # Method for editing.
-        if self.find_phone(old_phone):
+        if self.find_phone(old_phone) and Phone(new_phone): # If the old_phone exists and the new_phone is valid.
             self.phones.remove(self.find_phone(old_phone))
             self.add_phone(new_phone)
         else:
@@ -49,11 +49,8 @@ class AddressBook(UserDict):
         self.data[record.name.value] = record
 
     def find(self, name): # Method that finds a record by name.
-        if name in self.data:
-            return self.data[name]
-        else:
-            return None
-
+        return self.data.get(name)
+    
     def delete(self, name): # Method that deletes a record by name.
         if name in self.data:
             del self.data[name]
