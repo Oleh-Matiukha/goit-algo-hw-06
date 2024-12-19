@@ -35,9 +35,9 @@ class Record:
         self.phones.remove(self.find_phone(phone))
 
     def edit_phone(self, old_phone, new_phone): # Method for editing.
-        if self.find_phone(old_phone) and Phone(new_phone): # If the old_phone exists and the new_phone is valid.
-            self.phones.remove(self.find_phone(old_phone))
+        if self.find_phone(old_phone) : # If the old_phone exists and the new_phone is valid.
             self.add_phone(new_phone)
+            self.phones.remove_phone(old_phone)
         else:
             raise ValueError
 
